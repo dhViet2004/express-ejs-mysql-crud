@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-links a {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #45a049;
+        }
+        
+        .logout {
+            background-color: #f44336 !important;
+        }
+        
+        .logout:hover {
+            background-color: #da190b !important;
+        }
+        
+        .message {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 15px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            border: 1px solid #d6e9c6;
+        }
+        
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .edit-btn,
+        .delete-btn {
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #0b7dda;
+        }
+        
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background-color: #da190b;
+        }
+        
+        .empty {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 5px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div>
+            <h1>Products</h1>
+            <% if (typeof user !== 'undefined') { %>
+                <p style="color: #666; margin: 5px 0 0 0; font-size: 14px;">👤 Logged in as: <strong><%= user %></strong></p>
+            <% } %>
+        </div>
+        <div class="nav-links">
+            <a href="/products/add">+ Add Product</a>
+            <a href="/logout" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <% if (typeof message !== 'undefined') { %>
+        <div class="message">
+            <%= message %>
+        </div>
+        <% } %>
+
+            <% if (typeof products !== 'undefined' && products.length > 0) { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(p => { %>
+                            <tr>
+                                <td><%= p.id %></td>
+                                <td><%= p.name %></td>
+                                <td>$<%= p.price %></td>
+                                <td><%= p.quantity %></td>
+                                <td>
+                                    <div class="actions">
+                                        <a href="/products/edit/<%= p.id %>" class="edit-btn">Edit</a>
+                                        <a href="/products/delete/<%= p.id %>" class="delete-btn" onclick="return confirm('Are you sure?')">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+                <% } else { %>
+                    <div class="empty">
+                        <p>No products found. <a href="/products/add">Add your first product</a></p>
+                    </div>
+                    <% } %>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            padding: 20px 0;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input,
+        textarea {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0b7dda;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .link a {
+            color: #2196F3;
+            text-decoration: none;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Edit Product</h2>
+        <% if (typeof message !== 'undefined') { %>
+            <p class="message <%= (message.includes('successfully')) ? 'success' : '' %>">
+                <%= message %>
+            </p>
+        <% } %>
+        <% if (typeof product !== 'undefined') { %>
+            <form method="post">
+                <input type="text" name="name" placeholder="Product Name" value="<%= product.name %>" required>
+                <input type="number" name="price" placeholder="Price" step="0.01" value="<%= product.price %>" required>
+                <input type="number" name="quantity" placeholder="Quantity" min="0" value="<%= product.quantity %>" required>
+                <button type="submit">Update Product</button>
+            </form>
+        <% } %>
+        <div class="link">
+            <a href="/products">Back to Products</a>
+        </div>
+    </div>
+</body>
+
+</html>
